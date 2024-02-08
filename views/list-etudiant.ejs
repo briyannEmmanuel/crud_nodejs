@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Etidiant List</title>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <%- include("./header"); %>
+    <div class="container">
+      <h1 class="heading">All Etudiants</h1>
+      <div class="etudiant-list">
+        <% if(typeof etudiants !== "undefined" && etudiants.length){ %>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nom</th>
+              <th>Prenom</th>
+              <th>Email</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for(etudiant of etudiants) {%>
+            <tr>
+              <td><%- etudiant.id %></td>
+              <td>
+                <class="view-etudiant" href="/etudiant/<%- etudiant.id %>"
+                  ><%- etudiant.nom %>
+                
+              </td>
+              <td>
+                <class="view-etudiant" href="/etudiant/<%- etudiant.id %>"
+                  ><%- etudiant.prenom %>
+                
+              </td>
+              <td>
+                <class="view-etudiant" href="/etudiant/<%- etudiant.id %>"
+                  ><%- etudiant.email %>
+           
+              </td>
+              <td>
+                <a href="/edit/<%- etudiant.id %>" class="edit">✎Edit</a>
+                <a href="/delete/<%- etudiant.id %>" class="del">Delete</a>
+              </td>
+            </tr>
+            <%} %>
+          </tbody>
+        </table>
+        <script>
+          function deleteMe(e, i) {
+            e.preventDefault();
+            if (confirm("Do you want to delete student?")) {
+              window.location.href = e.target.getAttribute("href") + i;
+            }
+          }
+        </script>
+        <% }else{%>
+        <p>
+          😊 Please <a href="/create"><strong>insert</strong></a> some
+          etudiants.
+        </p>
+        <%} %>
+      </div>
+    </div>
+  </body>
+</html>

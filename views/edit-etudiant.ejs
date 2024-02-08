@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Etudiant</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <%- include("./header"); %> <% if(typeof body === 'undefined'){ var body =
+    false; } %>
+    <div class="container">
+      <h1 class="heading">✍🏻 Edit Etudiant</h1>
+      <div class="form">
+        <form action="" method="POST">
+          <label for="etudiant_nom"
+            >Nom: <span class="error-msg nom"></span
+          ></label>
+          <input
+            type="text"
+            name="nom"
+            id="etudiant_nom"
+            placeholder="Nom"
+            value="<%- (typeof body.nom !== 'undefined') ? body.nom : etudiant.nom %>"
+          />
+          <label for="etudiant_prenom"
+            >Prenom: <span class="error-msg prenom"></span
+          ></label>
+          <textarea
+            name="prenom"
+            id="etudiant_prenom"
+            placeholder="Your thought..."
+          >
+<%- (typeof body.prenom !== 'undefined') ? body.prenom : etudiant.prenom %></textarea
+          >
+          <label for="etudiant_email"
+            >Email: <span class="error-msg email"></span
+          ></label>
+          <input
+            type="text"
+            name="email"
+            id="etudiant_email"
+            placeholder="Email"
+            value="<%- (typeof body.email !== 'undefined') ? body.email : etudiant.email %>"
+          />
+          <% if(typeof updated !== 'undefined') {%>
+          <div class="s-msg">Etudiant has been updated.</div>
+          <% } %>
+          <button type="submit">Update Etudiant</button>
+        </form>
+      </div>
+    </div>
+    <script>
+      if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+      }
+      if (typeof validationErrors !== "undefined") {
+        let spanItem;
+        let item;
+        const validationErrors = validationErrors;
+        for (i of validationErrors) {
+          spanItem = document.querySelector(`.error-msg.${i.path}`);
+          item = document.querySelector(`[name="${i.path}"]`);
+          item.classList.add("error");
+          spanItem.innerText = i.msg;
+        }
+      }
+    </script>
+  </body>
+</html>
